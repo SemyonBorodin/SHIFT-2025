@@ -1,0 +1,14 @@
+{
+  "EXPERT" : {
+    "name" : "Unknown",
+    "time" : 999
+  },
+  "MEDIUM" : {
+    "name" : "Маша",
+    "time" : 99999999
+  },
+  "NOVICE" : {
+    "name" : "1111",
+    "time" : 20
+  }
+}

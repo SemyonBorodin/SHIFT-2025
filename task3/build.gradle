@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+mainClassName = 'ru.cft.javaLessons.miner.app.Application'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation "ch.qos.logback:logback-classic:1.2.3"
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+}

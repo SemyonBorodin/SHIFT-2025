@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks.named('jar') {
+    enabled = false
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+}
+
+tasks.register('clientJar', Jar) {
+    archiveBaseName = 'client'
+    from sourceSets.main.output
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    include 'client/**', 'common/**', 'client.properties', 'com/fasterxml/**'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'client.ClientMain'
+    }
+}
+
+tasks.register('serverJar', Jar) {
+    archiveBaseName = 'server'
+    from sourceSets.main.output
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    include 'server/**', 'common/**', 'server.properties', 'com/fasterxml/**'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'server.Server'
+    }
+}
+
+tasks.named('build') {
+    dependsOn clientJar
+    dependsOn serverJar
+}
